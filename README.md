@@ -325,17 +325,6 @@ python -B run_bdstomatrix.py --help
 python -B trait_extractor.py --help
 ```
 
-## Scientific QC
-
-- Keep abaxial and adaxial surfaces separate in aggregation and GWAS.
-- Review spatial audit overlays and eligibility fields before analysis.
-- Preserve provenance, QC tables and audit overlays with derived datasets.
-- Treat a new imaging domain or microscope configuration as requiring new
-  validation rather than silently changing this locked release.
-
-See `VALIDATION.md` for the validation scope and `PRODUCTION_LOCK.md` for the
-versioning policy.
-
 ## Licence
 
 The three model files are included.
