@@ -181,36 +181,36 @@ The trait output must be new and outside the inference directory.
 
 ## Example outputs
 
-The following representative AB (abaxial) and AD (adaxial) outputs come from
+The following representative abaxial and adaxial outputs come from
 the completed Conda verification run. Public example filenames are generic;
 the image content has not been altered.
 
 ### Spatial audit overlays
 
-#### AB surface
+#### Abaxial surface
 
-![Representative AB spatial audit overlay](examples/spatial_audit/example_AB_spatial_audit.png)
+![Representative abaxial spatial audit overlay](examples/spatial_audit/example_AB_spatial_audit.png)
 
-#### AD surface
+#### Adaxial surface
 
-![Representative AD spatial audit overlay](examples/spatial_audit/example_AD_spatial_audit.png)
+![Representative adaxial spatial audit overlay](examples/spatial_audit/example_AD_spatial_audit.png)
 
 ### Masked stomatal-complex crops
 
 Each crop below passed the preliminary complete-complex checks and contains
 two selected guard-cell masks and two selected subsidiary-cell masks.
 
-#### AB masked crops
+#### Abaxial masked crops
 
 | Stoma 0011 | Stoma 0019 |
 | --- | --- |
-| ![AB stoma 0011 masked stomatal-complex crop](examples/masked_crops/example_AB_masked_crop_01.png) | ![AB stoma 0019 masked stomatal-complex crop](examples/masked_crops/example_AB_masked_crop_02.png) |
+| ![Abaxial stoma 0011 masked stomatal-complex crop](examples/masked_crops/example_AB_masked_crop_01.png) | ![Abaxial stoma 0019 masked stomatal-complex crop](examples/masked_crops/example_AB_masked_crop_02.png) |
 
-#### AD masked crops
+#### Adaxial masked crops
 
 | Stoma 0008 | Stoma 0017 |
 | --- | --- |
-| ![AD stoma 0008 masked stomatal-complex crop](examples/masked_crops/example_AD_masked_crop_01.png) | ![AD stoma 0017 masked stomatal-complex crop](examples/masked_crops/example_AD_masked_crop_02.png) |
+| ![Adaxial stoma 0008 masked stomatal-complex crop](examples/masked_crops/example_AD_masked_crop_01.png) | ![Adaxial stoma 0017 masked stomatal-complex crop](examples/masked_crops/example_AD_masked_crop_02.png) |
 
 ### Spatial-overlay and mask colour key
 
@@ -327,7 +327,7 @@ python -B trait_extractor.py --help
 
 ## Scientific QC
 
-- Keep AB and AD surfaces separate in aggregation and GWAS.
+- Keep abaxial and adaxial surfaces separate in aggregation and GWAS.
 - Review spatial audit overlays and eligibility fields before analysis.
 - Preserve provenance, QC tables and audit overlays with derived datasets.
 - Treat a new imaging domain or microscope configuration as requiring new
