@@ -1,0 +1,13 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+*.incomplete/
+*.log
+
+# Runtime analysis outputs should not be committed with the production code.
+inference_support/
+traits_v2_5_4/
+final_run_provenance.json
+FINAL_RUN_REPORT.txt
+FINAL_PIPELINE_FAILURE.txt
+

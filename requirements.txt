@@ -1,0 +1,12 @@
+# Clean direct runtime requirements for BdStomatrix.
+# Python 3.11 is recommended. Transitive Ultralytics dependencies are resolved
+# by pip. Use one OpenCV wheel family only. For NVIDIA CUDA, install the
+# platform/driver-compatible PyTorch and torchvision wheels using the official
+# PyTorch installation selector before installing the remaining requirements.
+numpy==1.26.4
+opencv-python==4.11.0.86
+Pillow==12.1.0
+tifffile==2026.1.14
+torch==2.10.0
+torchvision==0.25.0
+ultralytics==8.4.6
