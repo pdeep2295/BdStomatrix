@@ -1,10 +1,19 @@
 # BdStomatrix (v1.1.0)
 
-BdStomatrix converts original Brachypodium OME-TIFF stomatal images into
-detector, segmentation, density, morphometric, row and band phenotypes.
+![BdStomatrix](logo.png)
 
-This release has one production entry point and one self-contained trait
-extractor:
+BdStomatrix uses Brachypodium OME-TIFF leaf epidermal microscopic images to 
+extract density, morphometry, row and band stomatal phenotypes.
+
+BdStomatrix runs a detector, classifier and a segmentor to detect stomata and 
+extract the guard-cell and subsidiary cell masks. These masks and detected 
+boundary boxes act as input for trait extractor.
+
+IMPORTANT -The pipeline is currently trained on 20x Differential Interference
+Contrast (DIC) images and have not tested for magnified or non-DIC images. 
+
+This release has one production entry point (complete pipeline) and one 
+self-contained trait extractor:
 
 - `run_bdstomatrix.py`: complete inference-to-traits workflow for either one
   TIFF or a directory.
