@@ -5,12 +5,12 @@
 BdStomatrix uses Brachypodium OME-TIFF leaf epidermal microscopic images to 
 extract density, morphometry, row and band stomatal phenotypes.
 
-BdStomatrix runs a detector, classifier and a segmentor to detect stomata and 
-extract the guard-cell and subsidiary cell masks. These masks and detected 
-boundary boxes act as input for trait extractor.
+BdStomatrix runs a detector, a classifier and a segmentor to detect stomata and
+extract the guard-cell and subsidiary-cell masks. These masks and detected 
+bounding boxes serve as input for the trait extractor.
 
-IMPORTANT -The pipeline is currently trained on 20x Differential Interference
-Contrast (DIC) images and have not tested for magnified or non-DIC images. 
+IMPORTANT - The pipeline is currently trained on 20x Differential Interference
+Contrast (DIC) images and has not been tested on magnified or non-DIC images. 
 
 This release has one production entry point (complete pipeline) and one 
 self-contained trait extractor:
