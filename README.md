@@ -62,19 +62,15 @@ so analytical changes can be distinguished from packaging changes.
 ## Production behavior
 
 - Accepts one TIFF file or one directory through the same command.
-- Verifies all Python components, embedded extractor sources and model weights.
 - Defaults to strict reference-calibration QC, with an explicit option to use
   valid per-image OME calibration while recording a mismatch warning.
 - Supports CPU, Apple MPS and indexed NVIDIA CUDA execution.
 - Defaults to the validated 3072 x 2048 dimensions while allowing an explicit
   alternative expected width and height.
 - Creates annotated spatial row/band audit overlays.
-- Does not create duplicate top-level batch trait CSV files.
 - Removes detector overview JPEGs after successful extraction by default.
 - Retains inference manifests, compressed masks, masked-crop QC references
   and provenance needed for reproducibility.
-- Never modifies source TIFF files.
-- Refuses to overwrite an existing output directory.
 
 ## Tested input contract
 
