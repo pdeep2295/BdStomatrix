@@ -1,4 +1,4 @@
-# Production lock policy
+#Version policy
 
 BdStomatrix final v1.1.0 freezes the detector, classifier, segmentor and v2.5.4 trait
 logic used for the audited production workflow.
@@ -12,5 +12,5 @@ logic used for the audited production workflow.
 - Treat non-default dimensions, non-reference calibration and a new compute
   backend as explicitly flagged validation domains.
 
-Unusual future image domains can expose unobserved failure modes. Record and
+Unusual future image domains can expose unobserved failures. Record and
 audit such cases rather than silently modifying this locked release.
