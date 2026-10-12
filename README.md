@@ -72,6 +72,15 @@ so analytical changes can be distinguished from packaging changes.
 - Retains inference manifests, compressed masks, masked-crop QC references
   and provenance needed for reproducibility.
 
+## Scientific reference
+
+Some spatial stomatal-patterning traits were informed by Hodge and Leakey
+(2026), while others were developed independently for BdStomatrix. Hodge,
+J. G., and Leakey, A. D. B. (2026). Spatial analysis of cell patterning to aid
+genetic and phenotypic understanding of grass stomatal density: A case study
+in maize. *The Plant Phenome Journal*, 9, e70066.
+https://doi.org/10.1002/ppj2.70066.
+
 ## Tested input contract
 
 - File extension: `.ome.tif`, `.ome.tiff`, `.tif` or `.tiff`.
