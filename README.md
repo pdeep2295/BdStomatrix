@@ -24,8 +24,8 @@ Two main scripts are provided:
 
 ## Readable source code
 
-The `scripts/` directory contains the 16 readable Python modules used for
-trait extraction.
+The `traitextraction_scripts/` directory contains the 16 readable Python
+modules used for trait extraction.
 
 `trait_extractor.py` contains compressed copies of these modules and checks
 their SHA-256 checksums before running them. The readable files are included
@@ -39,9 +39,18 @@ forms remain consistent.
 
 The main v2.5.4 rule file is:
 
-`scripts/extract_traits_from_pipeline_output_v2_5_4_independent_band_boundary_rules.py`
+`traitextraction_scripts/extract_traits_from_pipeline_output_v2_5_4_independent_band_boundary_rules.py`
 
 Earlier modules are included because v2.5.4 builds on their functions.
+
+## Model training scripts
+
+The scripts used to generate the classifier crops and train the detector,
+classifier and segmentation model are provided in the `training/` directory.
+They document the training settings and are not required for analysing images.
+The scripts retain the original local paths and Apple MPS settings, which must
+be changed before training on another computer. See `training/README.md` for
+details.
 
 ## Versions
 
