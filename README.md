@@ -2,95 +2,91 @@
 
 ![BdStomatrix](logo.png)
 
-BdStomatrix uses Brachypodium OME-TIFF leaf epidermal microscopic images to 
-extract density, morphometry, row and band stomatal phenotypes.
+BdStomatrix analyses OME-TIFF microscope images of the *Brachypodium* leaf
+epidermis. It measures stomatal density and morphometry and describes stomatal
+rows and bands.
 
-BdStomatrix runs a detector, a classifier and a segmentor to detect stomata and
-extract the guard-cell and subsidiary-cell masks. These masks and detected 
-bounding boxes serve as input for the trait extractor.
+The pipeline uses a detector, classifier and segmentation model to identify
+stomata and obtain guard-cell and subsidiary-cell masks. The detected objects
+and masks are then used to calculate image-level and individual-stoma traits.
 
-IMPORTANT - The pipeline is currently trained on 20x Differential Interference
-Contrast (DIC) images and has not been tested on magnified or non-DIC images. 
+The current models were trained and tested using 20× Differential Interference
+Contrast (DIC) images. Images collected at other magnifications or with other
+microscopy methods should be independently validated before biological
+analysis.
 
-This release has one production entry point (complete pipeline) and one 
-self-contained trait extractor:
+Two main scripts are provided:
 
-- `run_bdstomatrix.py`: complete inference-to-traits workflow for either one
-  TIFF or a directory.
-- `trait_extractor.py`: standalone trait extraction from an
-  existing BdStomatrix inference directory.
-
-The trait extractor has no external extractor-module dependency. It embeds
-the 16 audited historical source modules byte-for-byte, verifies their hashes,
-and materializes them only in a private temporary directory for the current
-process. This preserves the validated inherited behavior while providing one
-deployable extractor file.
+- `run_bdstomatrix.py` runs the complete pipeline on one TIFF image or a
+  directory of images.
+- `trait_extractor.py` calculates traits from existing BdStomatrix detection
+  and segmentation results.
 
 ## Readable source code
 
-The `scripts/` directory contains the 16 readable Python source modules used
-to implement the audited trait-extraction workflow.
+The `scripts/` directory contains the 16 readable Python modules used for
+trait extraction.
 
-`trait_extractor.py` is the portable production bundle. It contains compressed
-copies of these modules and verifies their SHA-256 identities before executing
-them. The readable scripts are provided for scientific review, transparency
-and future development; they are not required when running the bundled
-production pipeline.
+`trait_extractor.py` contains compressed copies of these modules and checks
+their SHA-256 checksums before running them. The readable files are included
+so that the methods can be inspected and developed further; they are not
+required for a normal pipeline run.
 
-The readable modules and embedded modules belong to the same locked scientific
-trait-rule version, v2.5.4. Any future modification to a readable module must
-use a new version and regenerate the bundled `trait_extractor.py`; editing only
-one representation would break their verified equivalence.
+The readable and compressed modules represent the same trait-calculation
+method, v2.5.4. If a readable module is changed, the method should receive a
+new version number and `trait_extractor.py` should be rebuilt so that both
+forms remain consistent.
 
-The final rule implementation is:
+The main v2.5.4 rule file is:
 
 `scripts/extract_traits_from_pipeline_output_v2_5_4_independent_band_boundary_rules.py`
 
-Earlier modules are retained because v2.5.4 inherits their audited
-functionality.
+Earlier modules are included because v2.5.4 builds on their functions.
 
-## Version identity
+## Versions
 
-- BdStomatrix application and release: `1.1.0`
-- Single-file trait-extractor distribution bundle: `1.1.0`
-- Audited scientific trait-rule version: `2.5.4`
+- BdStomatrix software release: `1.1.0`
+- Single-file trait extractor: `1.1.0`
+- Trait-calculation method: `2.5.4`
 
-The application version identifies this GitHub release. The scientific
-trait-rule version remains separately recorded in provenance and output naming
-so analytical changes can be distinguished from packaging changes.
+The software version identifies the GitHub release. The trait-calculation
+method has a separate version so that changes in biological measurements can
+be distinguished from changes in installation or file organisation.
 
-## Production behavior
+## What the pipeline does
 
 - Accepts one TIFF file or one directory through the same command.
-- Defaults to strict reference-calibration QC, with an explicit option to use
-  valid per-image OME calibration while recording a mismatch warning.
-- Supports CPU, Apple MPS and indexed NVIDIA CUDA execution.
-- Defaults to the validated 3072 x 2048 dimensions while allowing an explicit
-  alternative expected width and height.
-- Creates annotated spatial row/band audit overlays.
-- Removes detector overview JPEGs after successful extraction by default.
-- Retains inference manifests, compressed masks, masked-crop QC references
-  and provenance needed for reproducibility.
+- Uses strict reference-calibration checks by default. Valid calibration from
+  individual OME files can be used instead, with any mismatch recorded.
+- Runs on CPU, Apple MPS or NVIDIA CUDA.
+- Expects the tested image size of 3072 x 2048 pixels by default; other image
+  dimensions can be supplied through command-line options.
+- Produces annotated images for checking stomatal rows and bands.
+- Removes detector overview JPEGs after successful trait extraction unless
+  the user chooses to keep them.
+- Keeps the detection records, compressed masks, masked crops and provenance
+  files needed to check and reproduce the analysis.
 
-## Scientific reference
+## Reference for spatial traits
 
 Some spatial stomatal-patterning traits were informed by Hodge and Leakey
-(2026), while others were developed independently for BdStomatrix. Hodge,
-J. G., and Leakey, A. D. B. (2026). Spatial analysis of cell patterning to aid
-genetic and phenotypic understanding of grass stomatal density: A case study
-in maize. *The Plant Phenome Journal*, 9, e70066.
+(2026); the remaining traits were developed independently for BdStomatrix.
+
+Hodge, J. G., & Leakey, A. D. B. (2026). Spatial analysis of cell patterning
+to aid genetic and phenotypic understanding of grass stomatal density: A case
+study in maize. *The Plant Phenome Journal*, 9, e70066.
 https://doi.org/10.1002/ppj2.70066.
 
-## Tested input contract
+## Supported input
 
 - File extension: `.ome.tif`, `.ome.tiff`, `.tif` or `.tiff`.
 - Default image dimensions: 3072 x 2048 pixels. Other dimensions must be
-  supplied explicitly and represent a new image domain requiring audit.
+  supplied explicitly and should be validated before analysis.
 - Image type: unsigned 8-bit grayscale.
 - Filename begins with `S001_AB_P1_...` or `S001_P1_AB_...`.
 - OME metadata contains valid positive X/Y physical pixel dimensions.
-- Strict mode additionally requires isotropic metadata matching the locked
-  4.5848 pixels/µm reference within 0.001 pixels/µm.
+- Strict mode also requires isotropic metadata matching the reference value of
+  4.5848 pixels/µm within 0.001 pixels/µm.
 
 ## Run one image
 
@@ -111,7 +107,7 @@ python -B run_bdstomatrix.py \
 ```
 
 Add `--recursive` only when nested directories should be searched. Reduce
-`--classifier-batch-size` from 32 to 16 or 8 if accelerator memory is limited.
+`--classifier-batch-size` from 32 to 16 or 8 if GPU memory is limited.
 Use `--device cpu`, `--device mps`, or `--device cuda --cuda-device 0`.
 
 `--keep-inference-overviews` retains detector overview JPEGs. These are
@@ -130,12 +126,13 @@ python run_bdstomatrix.py \
 --device cpu
 ```
 
-Changing dimensions does not retrain the models. Audit detections,
-segmentations and spatial overlays before using traits from a new image domain.
+Changing these values does not retrain the models. Check detections,
+segmentations and spatial overlays before using traits from images with a
+different resolution.
 
 ## Calibration policies
 
-The default preserves the validated behavior:
+The default setting is:
 
 ```text
 --calibration-policy strict-reference
@@ -145,17 +142,19 @@ It requires valid isotropic OME metadata matching 4.5848 pixels/µm within the
 0.001 tolerance. Trait calculations use the actual metadata values after the
 image passes this check.
 
-To use valid per-image metadata despite disagreement with the reference:
+To use the calibration recorded in each image when it differs from the
+reference:
 
 ```text
 --calibration-policy use-image-metadata
 ```
 
-This permits positive X/Y metadata values, uses them separately for calibrated
-traits, and records `metadata_used_reference_mismatch` or
-`metadata_used_anisotropic_calibration`, the actual calibration, differences,
-and a provisional warning. Missing or invalid calibration still stops the
-complete pipeline.
+This setting accepts positive X/Y calibration values and uses them separately
+when calculating calibrated traits. The output records the calibration values,
+their differences from the reference and either
+`metadata_used_reference_mismatch` or
+`metadata_used_anisotropic_calibration`. Missing or invalid calibration still
+stops the pipeline.
 
 ## Run trait extraction alone
 
@@ -195,9 +194,9 @@ The trait output must be new and outside the inference directory.
 
 ## Example outputs
 
-The following representative abaxial and adaxial outputs come from
-the completed Conda verification run. Public example filenames are generic;
-the image content has not been altered.
+The following abaxial and adaxial examples are from the Conda test run. Their
+filenames were changed for the repository, but the image content was not
+altered.
 
 ### Spatial audit overlays
 
@@ -228,26 +227,25 @@ two selected guard-cell masks and two selected subsidiary-cell masks.
 
 ### Spatial-overlay and mask colour key
 
-The spatial audit overlay is drawn on the detector overview, so it contains
-both inference-stage boxes and trait-extraction annotations. Colour must be
-read together with mark shape and adjacent text: some colours are deliberately
-reused for different mark types. The key below includes every annotation that
-the final v2.5.4 renderer can emit, including marks absent from these two
-examples.
+The spatial audit overlay is placed on the detector output, so it shows both
+detection boxes and row/band annotations. Colours should be interpreted with
+the symbol and adjacent text because some colours are used for more than one
+type of annotation. The key includes all annotations that v2.5.4 can produce,
+including annotations not present in these examples.
 
 #### Detection and segmentation boxes
 
 | Colour and mark | Meaning |
 | --- | --- |
 | Yellow box with an `H`-prefixed label | Detected hair cell. |
-| Green numbered box | Stoma with a selected, preliminary usable complete complex. |
-| Purple numbered box | A raw two-guard/two-subsidiary result was found, but geometry, target association or border QC prevented preliminary complete-complex eligibility. |
-| Blue numbered box | Guard pair only, or incomplete subsidiary-cell segmentation. |
-| Orange numbered box | Selected for segmentation but not represented by one of the preceding completed states. |
+| Green numbered box | Stoma with guard-cell and subsidiary-cell masks that passed the initial checks. |
+| Purple numbered box | Two guard-cell and two subsidiary-cell masks were found, but the result failed a geometry, target-association or border check. |
+| Blue numbered box | Two guard-cell masks were found, but subsidiary-cell segmentation was incomplete. |
+| Orange numbered box | Stoma selected for segmentation but not assigned one of the preceding results. |
 | Grey numbered box | Detected stoma not selected for segmentation. |
 
-The unprefixed number is the deterministic stoma index within the source
-image; it is not a class label.
+The number identifies the stoma within the source image; it is not a class
+label.
 
 #### Rows, bands and orientation
 
@@ -288,7 +286,7 @@ stored masks and calibrated coordinates, not from the rendered PNG colours.
 
 ## Installation
 
-Create the distributable Conda environment from inside the release directory:
+Create the Conda environment from inside the BdStomatrix directory:
 
 ```bash
 conda env create --file environment.yaml
@@ -310,9 +308,9 @@ conda env update --file environment.yaml --prune
 conda activate bdstomatrix
 ```
 
-The YAML creates a clean Python 3.11 environment and installs the direct,
-pinned runtime dependencies. Ultralytics installs its required transitive
-Python dependencies automatically.
+The YAML file creates a Python 3.11 environment and installs the required
+packages. Additional Python packages required by Ultralytics are installed
+automatically.
 
 Alternatively, install into an already activated Python 3.11 environment:
 
@@ -320,14 +318,14 @@ Alternatively, install into an already activated Python 3.11 environment:
 python -m pip install -r requirements.txt
 ```
 
-See `DEPENDENCIES.md` for tested package versions, component hashes and model
-identities.
+See `DEPENDENCIES.md` for the tested package versions and checksums for the
+pipeline components and model files.
 
-The base YAML is the portable tested dependency specification, but it cannot
-select the correct CUDA-enabled PyTorch wheel for every NVIDIA driver and
-operating system. CUDA users should create the environment first, then replace
-the generic PyTorch/torchvision installation using the command produced by the
-official PyTorch installation selector. See `PLATFORM_GUIDE.md`.
+The YAML file cannot select the correct CUDA-enabled PyTorch installation for
+every NVIDIA driver and operating system. CUDA users should first create the
+environment and then install the appropriate PyTorch and torchvision versions
+using the command provided by the official PyTorch installation selector. See
+`PLATFORM_GUIDE.md`.
 
 ## Verify the release
 
@@ -341,7 +339,7 @@ python -B trait_extractor.py --help
 
 ## Licence
 
-The three model files are included.
+The detector, classifier and segmentation model files are included.
 
 Copyright (C) 2026 University of Bern and contributors. BdStomatrix source code
 and the included trained model checkpoints are distributed under the GNU
