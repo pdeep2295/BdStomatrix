@@ -25,34 +25,9 @@ The main scripts are:
 
 ## Readable source code
 
-The `traitextraction_scripts/` directory contains the 16 readable Python
-modules used for trait extraction.
-
-`trait_extractor.py` compiles the effective v2.5.4 calculation chain into
-ordinary Python source in one file. It does not contain compressed source
-payloads, create temporary Python modules or require the
-`traitextraction_scripts/` directory at runtime. The historical namespaces are
-retained inside the file because successive audited versions replace selected
-functions from earlier versions.
-
-The readable extractor was compared with the previous embedded implementation
-on the independent 40-image validation set. All scientific CSV files, QC
-tables and spatial audit PNGs were identical. The previous implementation is
-retained as `trait_extractor_old.py` for rollback but is not used by the main
-pipeline.
-
-The 16 source modules remain in `traitextraction_scripts/` for inspection and
-future development. They are not required for a normal pipeline run.
-
-Both extractor implementations represent the same trait-calculation method,
-v2.5.4. If the scientific method is changed, it should receive a new version
-number and the canonical extractor should be rebuilt and validated.
-
-The main v2.5.4 rule file is:
-
-`traitextraction_scripts/extract_traits_from_pipeline_output_v2_5_4_independent_band_boundary_rules.py`
-
-Earlier modules are included because v2.5.4 builds on their functions.
+The full trait extraction code is provided in `trait_extractor.py` as a single
+readable Python file. The individual development scripts are included in
+`traitextraction_scripts/` for reference and are not needed to run the pipeline.
 
 ## Model training scripts
 
@@ -138,8 +113,8 @@ removed by default because the spatial row/band audit overlays are retained.
 
 The `examples_for_run/` directory contains one abaxial image
 (`S047_AB_P3_EDF.ome.tif`) and one adaxial image
-(`S047_AD_P5_EDF.ome.tif`). Their original filenames are unchanged, and they
-are the source images used for the example outputs shown below.
+(`S047_AD_P5_EDF.ome.tif`). They are the source images used for the example
+outputs shown below.
 
 From inside the BdStomatrix directory, run both example images with:
 
