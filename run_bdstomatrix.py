@@ -3,7 +3,7 @@
 
 This is the final production entry point for either one OME-TIFF or a
 directory of OME-TIFFs. It uses the audited inference module and the
-self-contained, hash-verified single-file v2.5.4 trait extractor.
+self-contained, readable and hash-verified single-file v2.5.4 trait extractor.
 
 Lean output policy
 ------------------
@@ -62,14 +62,14 @@ SCRIPT_VERSION = "1.1.0"
 INFERENCE_DIRECTORY_NAME = "inference_support"
 TRAIT_DIRECTORY_NAME = "traits_v2_5_4"
 
-# These hashes freeze the two runtime Python components. The single trait
-# extractor independently verifies all 16 embedded audited source identities.
+# These hashes freeze the two runtime Python components. The trait extractor
+# contains the effective v2.5.4 calculation chain as ordinary Python source.
 EXPECTED_COMPONENT_SHA256 = {
     "run_ome_to_final_segmentation_pipeline.py": (
         "a41a50a6e82d8f40698c9fadd2ff36c659b36e60dd8f5e0f871329232b7fc98c"
     ),
     "trait_extractor.py": (
-        "87121bb33b4fab3de1dd66263b14b9b7462182a10afd42be178fa54cde47def3"
+        "bb9c14c90a2e58fcf8ab899d484abeaac08bac92cfc6ddecb6d089999f575d37"
     ),
 }
 

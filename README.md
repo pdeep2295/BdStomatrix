@@ -15,27 +15,38 @@ Contrast (DIC) images. Images collected at other magnifications or with other
 microscopy methods should be independently validated before biological
 analysis.
 
-Two main scripts are provided:
+The main scripts are:
 
 - `run_bdstomatrix.py` runs the complete pipeline on one TIFF image or a
   directory of images.
 - `trait_extractor.py` calculates traits from existing BdStomatrix detection
-  and segmentation results.
+  and segmentation results. It contains the full effective v2.5.4 calculation
+  chain as readable Python source in one file.
 
 ## Readable source code
 
 The `traitextraction_scripts/` directory contains the 16 readable Python
 modules used for trait extraction.
 
-`trait_extractor.py` contains compressed copies of these modules and checks
-their SHA-256 checksums before running them. The readable files are included
-so that the methods can be inspected and developed further; they are not
-required for a normal pipeline run.
+`trait_extractor.py` compiles the effective v2.5.4 calculation chain into
+ordinary Python source in one file. It does not contain compressed source
+payloads, create temporary Python modules or require the
+`traitextraction_scripts/` directory at runtime. The historical namespaces are
+retained inside the file because successive audited versions replace selected
+functions from earlier versions.
 
-The readable and compressed modules represent the same trait-calculation
-method, v2.5.4. If a readable module is changed, the method should receive a
-new version number and `trait_extractor.py` should be rebuilt so that both
-forms remain consistent.
+The readable extractor was compared with the previous embedded implementation
+on the independent 40-image validation set. All scientific CSV files, QC
+tables and spatial audit PNGs were identical. The previous implementation is
+retained as `trait_extractor_old.py` for rollback but is not used by the main
+pipeline.
+
+The 16 source modules remain in `traitextraction_scripts/` for inspection and
+future development. They are not required for a normal pipeline run.
+
+Both extractor implementations represent the same trait-calculation method,
+v2.5.4. If the scientific method is changed, it should receive a new version
+number and the canonical extractor should be rebuilt and validated.
 
 The main v2.5.4 rule file is:
 
@@ -55,7 +66,8 @@ details.
 ## Versions
 
 - BdStomatrix software release: `1.1.0`
-- Single-file trait extractor: `1.1.0`
+- Canonical readable single-file extractor: `1.0.0`
+- Legacy embedded extractor bundle: `1.1.0`
 - Trait-calculation method: `2.5.4`
 
 The software version identifies the GitHub release. The trait-calculation
@@ -122,6 +134,24 @@ Use `--device cpu`, `--device mps`, or `--device cuda --cuda-device 0`.
 `--keep-inference-overviews` retains detector overview JPEGs. These are
 removed by default because the spatial row/band audit overlays are retained.
 
+## Example images for a test run
+
+The `examples_for_run/` directory contains one abaxial image
+(`S047_AB_P3_EDF.ome.tif`) and one adaxial image
+(`S047_AD_P5_EDF.ome.tif`). Their original filenames are unchanged, and they
+are the source images used for the example outputs shown below.
+
+From inside the BdStomatrix directory, run both example images with:
+
+```bash
+python -B run_bdstomatrix.py \
+--input "examples_for_run" \
+--output-dir "example_run_output" \
+--device cpu
+```
+
+The output directory must not already exist.
+
 ## Non-default resolution
 
 Both dimensions must describe the actual input images:
@@ -173,7 +203,8 @@ python -B trait_extractor.py \
 --output-dir "/full/path/to/new_traits_v2_5_4"
 ```
 
-The trait output must be new and outside the inference directory.
+The trait output must be new and outside the inference directory. This command
+uses the canonical readable single-file implementation.
 
 ## Output layout
 
@@ -345,6 +376,14 @@ shasum -a 256 -c SHA256SUMS.txt
 python -B run_bdstomatrix.py --help
 python -B trait_extractor.py --help
 ```
+
+## Citation and repository metadata
+
+`CITATION.cff` provides citation information for GitHub, `.zenodo.json`
+provides the Zenodo metadata override, and `pyproject.toml` records the Python
+project metadata and direct dependencies. The reproducible runtime environment
+is still created from `environment.yaml`; BdStomatrix is distributed as a
+source-and-model bundle rather than as a Python wheel.
 
 ## Licence
 

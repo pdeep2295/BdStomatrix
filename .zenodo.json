@@ -1,0 +1,42 @@
+{
+  "title": "BdStomatrix: An automated pipeline for stomatal detection, segmentation and trait extraction in Brachypodium.",
+  "description": "BdStomatrix is an automated computer-vision pipeline for stomatal detection, cell segmentation, morphometry, density estimation, and spatial row and band trait extraction from Brachypodium microscopy images.",
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "AGPL-3.0-only",
+  "version": "1.1.0",
+  "language": "eng",
+  "creators": [
+    {
+      "name": "Kohli, Pawandeep Singh",
+      "affiliation": "Institute of Plant Sciences, University of Bern, Switzerland; Oeschger Centre for Climate Change Research, University of Bern, Switzerland",
+      "orcid": "0000-0002-8922-5569"
+    },
+    {
+      "name": "Stojiljkovic, Ana",
+      "affiliation": "Data Science Lab & Microscopy Imaging Center, University of Bern, Switzerland",
+      "orcid": "0000-0001-6194-0811"
+    },
+    {
+      "name": "Roulin, Anne C.",
+      "affiliation": "Agroscope, Switzerland",
+      "orcid": "0000-0002-6668-3321"
+    },
+    {
+      "name": "Raissig, Michael T",
+      "affiliation": "Institute of Plant Sciences, University of Bern, Switzerland; Oeschger Centre for Climate Change Research, University of Bern, Switzerland",
+      "orcid": "0000-0003-3179-9372"
+    }
+  ],
+  "keywords": [
+    "Brachypodium",
+    "stomata",
+    "computer vision",
+    "image segmentation",
+    "plant phenotyping",
+    "spatial traits"
+  ],
+  "references": [
+    "https://github.com/pdeep2295/BdStomatrix"
+  ]
+}
