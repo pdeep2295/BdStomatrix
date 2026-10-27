@@ -2,6 +2,8 @@
 
 ![BdStomatrix](logo.png)
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23693050.svg)](https://doi.org/10.5281/zenodo.23693050)
+
 <img src="lab_logo.png" alt="University of Bern, Institute of Plant Sciences" width="300">
 
 BdStomatrix analyses OME-TIFF microscope images of the *Brachypodium* leaf
