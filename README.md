@@ -38,6 +38,27 @@ The scripts retain the original local paths and Apple MPS settings, which must
 be changed before training on another computer. See `training/README.md` for
 details.
 
+## Model evaluation
+
+The models were evaluated once using held-out data that were not used for
+training or model selection. The detector test set contained 58 images with
+2,111 stomata and 2,765 hair cells. The classifier test set contained 657
+crops, and the segmentation test set contained 69 annotated stomatal crops
+from eight slides.
+
+| Model and class | Precision | Recall | F1 | mAP50 | mAP50–95 |
+|---|---:|---:|---:|---:|---:|
+| Detection: stoma | 0.9615 | 0.9725 | 0.9670 | 0.9916 | 0.7510 |
+| Detection: hair cell | 0.8928 | 0.8864 | 0.8896 | 0.9517 | 0.6824 |
+| Segmentation: guard cell mask | 0.9329 | 0.9068 | — | 0.9699 | 0.6305 |
+| Segmentation: subsidiary cell mask | 0.8848 | 0.8768 | — | 0.9419 | 0.5698 |
+
+The crop classifier had a balanced accuracy of 0.7208 and a macro-F1 score of
+0.7123. Class-specific F1 scores were 0.8411 for full-good crops, 0.5744 for
+guard-only crops and 0.7214 for rejected crops. Further details of dataset
+construction and model evaluation will be provided in the accompanying
+manuscript.
+
 ## Versions
 
 - BdStomatrix software release: `1.1.0`
