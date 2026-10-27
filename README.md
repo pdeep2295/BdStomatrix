@@ -2,6 +2,8 @@
 
 ![BdStomatrix](logo.png)
 
+<img src="lab_logo.png" alt="University of Bern, Institute of Plant Sciences" width="300">
+
 BdStomatrix analyses OME-TIFF microscope images of the *Brachypodium* leaf
 epidermis. It measures stomatal density and morphometry and describes stomatal
 rows and bands.
@@ -385,7 +387,8 @@ source-and-model bundle rather than as a Python wheel.
 
 The detector, classifier and segmentation model files are included.
 
-Copyright (C) 2026 University of Bern and contributors. BdStomatrix source code
+Copyright (C) 2026 University of Bern, Institute of Plant Sciences,
+Dr Pawandeep Singh Kohli and Prof. Dr Michael Raissig. BdStomatrix source code
 and the included trained model checkpoints are distributed under the GNU
 Affero General Public License, version 3 (`AGPL-3.0-only`), subject to the
 ownership qualification in `LICENSE_NOTICE.md`. See `LICENSE` for the complete
